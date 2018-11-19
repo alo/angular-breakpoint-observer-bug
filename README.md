@@ -1,27 +1,55 @@
-# BreakpointObserverBug
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.2.
+#### Bug, feature request, or proposal:
+Bug
 
-## Development server
+#### What is the expected behavior?
+Components using BreakpointObserver should be destroyed when the path is changed.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### What is the current behavior?
+Components that use BreakpointObserver are not destroyed correctly causing memory leaks
 
-## Code scaffolding
+#### What are the steps to reproduce?
+stackblitz: https://stackblitz.com/edit/breakpoint-observer-bug (Open in new window)
+github: https://github.com/alo/angular-breakpoint-observer-bug
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Only start the project (github: yarn start / stackblitz: Open in new window) and navigate between the two paths (foo & bar).
+Open Chrome dev tools and take a Heap Snapshot (in memory tab). You will see the component as many times as you have created it (so it has never been destroyed)
 
-## Build
+<img width="991" alt="captura de pantalla 2018-11-19 a las 17 01 34" src="https://user-images.githubusercontent.com/234613/48719257-563f5d00-ec1d-11e8-8493-921ab8b65df0.png">
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+#### Which versions of Angular, Material, OS, TypeScript, browsers are affected?
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+     _                      _                 ____ _     ___
+    / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+   / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
+  / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
+ /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
+                |___/
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Angular CLI: 7.0.6
+Node: 10.13.0
+OS: darwin x64
+Angular: 7.0.4
+... animations, cdk, common, compiler, compiler-cli, core, forms
+... http, language-service, platform-browser
+... platform-browser-dynamic, router
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Package                           Version
+-----------------------------------------------------------
+@angular-devkit/architect         0.10.6
+@angular-devkit/build-angular     0.10.6
+@angular-devkit/build-optimizer   0.10.6
+@angular-devkit/build-webpack     0.10.6
+@angular-devkit/core              7.0.6
+@angular-devkit/schematics        7.0.6
+@angular/cli                      7.0.6
+@ngtools/webpack                  7.0.6
+@schematics/angular               7.0.6
+@schematics/update                0.10.6
+rxjs                              6.3.3
+typescript                        3.1.6
+webpack                           4.19.1
+```
