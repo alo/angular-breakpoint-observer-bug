@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-foo',
@@ -9,15 +10,16 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
   `
 })
 export class FooComponent implements OnInit, OnDestroy {
+  
   mobileRes = false;
-
   myArray: string[] = [];
+  subscription: Subscription;
 
   constructor(public breakpointObserver: BreakpointObserver) {}
 
   ngOnInit() {
     this.generateDummyData();
-    this.breakpointObserver
+    this.subscription = this.breakpointObserver
       .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
         this.mobileRes = state.matches;
@@ -28,7 +30,7 @@ export class FooComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.breakpointObserver.ngOnDestroy();
+    this.subscription.unsubscribe();
   }
 
   generateDummyData(){
